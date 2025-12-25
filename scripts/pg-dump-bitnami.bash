@@ -4,7 +4,11 @@ POSTGRES_USER=$1
 OUT_FILE_NAME=$2
 TARGET_DIR=$3
 EXCLUDE_FLAG=$4
-POSTGRES_PASSWORD=$(cat ${POSTGRES_PASSWORD_FILE})
+
+if [[ -n "${POSTGRES_PASSWORD_FILE:-}" ]]; then
+    POSTGRES_PASSWORD=$(cat ${POSTGRES_PASSWORD_FILE})
+    # ถ้าไม่มีตัวแปรนี้จะใช้ POSTGRES_PASSWORD ได้เลยตรง ๆ
+fi
 
 DB=${POSTGRES_DB}
 if [ -z "${DB}" ]; then
